@@ -1,0 +1,43 @@
+/* 信息显示 */
+.address .checkbox{
+  font-size:30rpx;
+  display: flex;
+  flex-direction: row;
+  padding:20rpx;
+  border-bottom: 1rpx solid #aaa;
+}
+
+.address .checkbox .check{
+   width:10%;
+   padding:40rpx;
+}
+
+.address .checkbox .mes{
+  width:90%;
+  padding:10rpx;
+}
+
+
+/* 按钮部分 */
+.address .change{
+   display: flex;
+  flex-direction: row;  
+  position: absolute; 
+  bottom: 0;
+  
+}
+.address .change .def{
+   margin: 5rpx;
+}
+.address .change .add{
+  padding:0 35rpx;
+  margin: 5rpx;
+}
+.address .change .mod{
+    padding:0 35rpx;
+    margin: 5rpx;
+}
+.address .change .del{
+  padding:0 40rpx;
+  margin: 5rpx;
+}

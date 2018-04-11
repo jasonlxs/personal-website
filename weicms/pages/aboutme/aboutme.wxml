@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view >
+   <view class="aboutme">
+      <image class="aboutme-img" src="{{img}}"></image>
+      <view class="aboutme-title">{{title}}</view>
+   </view>
+    <view class="aboutme-intro">
+         {{content}}
+    </view>
+    <view class="aboutme-info">
+      <view class="aboutme-contab">联系方式</view>
+      <view class="aboutme-addr">地址:{{addr}}</view>
+      <view class="aboutme-tel">联系电话:{{tel}}</view>
+      <view class="aboutme-mail">商务合作:{{mail}}</view>
+    </view>
+</view>

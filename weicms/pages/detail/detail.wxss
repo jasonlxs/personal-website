@@ -1,0 +1,31 @@
+/* pages/detail/detail.wxss */
+.detail{
+     height:100%;
+     display:flex;
+     flex-direction: column;
+     padding:20rpx;
+}
+.detail-title{
+     text-align: center;
+     font-size:30px;
+     margin-bottom:10px;
+}
+.detail-time{
+     color:#aaa;
+     font-size:16px;
+     margin:0 auto;
+     padding:20rpx;
+}
+.detail-img{
+    text-align: center;
+}
+.detail-img image{
+   text-align: center;
+   margin:10xp auto;
+   width:300rpx;
+   height:300rpx;
+}
+.detail-content{
+    text-indent: 30px;
+    padding:30px;
+}

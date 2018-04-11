@@ -1,0 +1,24 @@
+<!--pages/bk_person/bk_person.wxml-->
+  <!-- 个人信息 -->
+<view class='personal'>
+   <view class='introduce'>
+    <image class='person_img' src='../../images/0.png'></image>
+    <view class='person_mes'>
+       <view>账号:{{user}}</view>
+       <view>昵称：{{nickname}}</view>
+       <view>账号余额：￥ {{money}}</view>
+    </view>
+   </view>
+
+
+    <view class='introduce_list'>
+       <navigator class='list_style' url="" hover-class="navigator-hover">账户信息</navigator>
+       <navigator class='list_style' url="../bk_cart/bk_cart" hover-class="navigator-hover">购物车</navigator>
+       <navigator class='list_style' url="../bk_orderlist/bk_orderlist" hover-class="navigator-hover">订单列表</navigator>
+       <navigator class='list_style' url="../bk_address/bk_address" hover-class="navigator-hover">收货地址</navigator>
+       <navigator class='list_style' url="" hover-class="navigator-hover">退出登录</navigator>
+    </view>
+
+   
+
+</view>

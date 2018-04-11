@@ -1,0 +1,34 @@
+/* bk_list.wxss */
+.list_title{
+   display:block;
+   padding:30rpx;
+   border-bottom:1px solid #aaa;
+   text-align: center;
+}
+.bk_list{
+   height: 250rpx;
+   border-bottom:1px solid #aaa;
+}
+.bk_list .list_img{
+    width:200rpx;
+    height:200rpx;
+    float:left;
+    padding:25rpx;
+}
+.bk_list .ti_pr{ 
+   padding:30rpx;
+   font-weight: 600;
+}
+.bk_list .ti_pr .bk_title{
+    font-size:35rpx;
+    display:inline-block;
+}
+.bk_list .ti_pr .bk_price{
+    display:inline-block;
+    color: red;
+    float:right;
+}
+.bk_list .bk_intro{
+    font-size:30rpx;
+    color:#aaa;
+}

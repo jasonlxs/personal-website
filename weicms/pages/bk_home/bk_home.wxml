@@ -1,0 +1,36 @@
+<!--bk_home.wxml-->
+<view class="section">
+ <view class="section__title">
+   <text>请选择书籍类别</text>
+    <view wx:if="{{user}}"> 
+        <view class='login_register'>
+          <navigator class='login' url="../bk_person/bk_person">{{user}}</navigator>
+        </view>
+    </view>
+    <view wx:else> 
+        <view class='login_register'>
+          <navigator class='login' url="../bk_login/bk_login">登录</navigator>
+          or
+          <navigator class='login' url="../register/register">注册</navigator>
+        </view>
+    </view>   
+  </view>
+  <!-- 分类选择 -->
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+      当前选择：{{array[index]}}   <view class='gt'>></view>
+    </view>
+  </picker>
+
+    <!-- 信息显示 -->
+   <view class='two'  wx:for="{{item}}" wx:key="*this" >
+      <navigator open-type="redirect" url="../bk_list/bk_list?id={{item.id}}">
+          <view class='two_li'>
+            {{item.cname}}
+            <text>说明文字 ></text>
+          </view>
+      </navigator>
+   </view>
+</view>
+
+<image bindtap='cs' class='menu' src='../../images/0.png'></image>

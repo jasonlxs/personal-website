@@ -1,0 +1,36 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+/*小提示*/
+.bg_hint{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20rpx;
+}
+.hint{
+   line-height: 50rpx;
+   border-radius: 10rpx;
+   height:50rpx;
+   background-color: #aaa;
+   color:#fff;
+   font-size:35rpx;
+   padding:8rpx;
+}
+
+/* 菜单 */
+.menu{
+  width:50rpx;
+  height:50rpx;
+  position: absolute;
+  right:0;
+  bottom: 0;
+}

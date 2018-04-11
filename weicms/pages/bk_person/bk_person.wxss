@@ -1,0 +1,39 @@
+/* pages/bk_person/bk_person.wxss */
+/* 上部信息 */
+.personal{
+  position:relative;
+}
+.personal .introduce{
+    display: flex;
+    flex-direction: row;
+}
+.personal .introduce .person_img{
+     width:250rpx;
+     height: 250rpx;
+     padding:20rpx;
+}
+.personal .introduce .person_mes{
+    padding:50rpx 0;
+    font-size:35rpx;
+}
+.personal .introduce .person_mes view{
+    border-radius: 20rpx;
+    padding:10rpx;
+}
+
+
+
+/* 下部列表 */
+.personal .introduce_list{
+    position: fixed;
+    bottom:0rpx;
+    width:100%;
+}
+.personal .introduce_list .list_style{
+    width:94%;
+    border:1rpx solid;
+    border-radius: 20rpx;
+    padding:20rpx;
+    text-align: center;
+    background-color: #dcdcdc;   
+}

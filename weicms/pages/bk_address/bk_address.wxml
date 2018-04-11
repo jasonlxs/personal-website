@@ -1,0 +1,28 @@
+<!--pages/bk_address/bk_address.wxml-->
+<view class='address'>
+<view wx:if="{{bid}}"><button class='def' type="primary"  bindtap="retOrd">返回查看订单</button></view>
+<radio-group class="radio-group" bindchange="radioChange">
+  <label class="checkbox" wx:for="{{items}}" wx:key='unique'>
+    <radio class="check" value="{{item.id}}" checked="{{item.isdefault}}"/>
+      <view class='mes'>
+        <view wx:if="{{item.isdefault}}" style='color:red'> [默认] </view>
+        <view>联系人：{{item.contacts}},   邮编：{{item.postcode}}</view>
+        <view>联系方式:{{item.phone}}</view>
+        <view>邮寄地址：{{item.address}}</view>
+   </view>
+  </label>
+</radio-group>
+
+
+<!-- 操作按钮 -->
+<view class='change'>
+<button class='def' type="primary"  bindtap="setDef">设为默认</button>
+<button class='add' type="primary"  bindtap="setAdd">新增</button>
+<button class='mod' type="primary"  bindtap="setMod">修改</button>
+<button class='del' type="primary"  bindtap="setDel">删除</button>
+</view>
+
+  <view class='bg_hint'>
+    <view class='hint' style='{{shint}}'>{{hint}}</view>
+  </view>
+</view>

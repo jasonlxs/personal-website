@@ -1,0 +1,24 @@
+<!--pages/bk_orderItem/bk_orderItem.wxml-->
+<form bindsubmit="formSubmit">
+<view class='order'>
+    <view class='order_status'>
+       <view class='orderNum' name='orderNO'>订单号：{{order_no}}</view>
+       <view class='orderStatus'>{{status}}</view>
+    </view>
+    <view class='order_items' wx:for="{{item}}" wx:key="*this">
+        <image class='order_img' src='{{imgurl}}{{item.product.preview}}'></image>
+        <view class='order_name'>{{item.product.name}}</view>
+        <view class='order_price'>
+          <text>{{item.product.price}}×</text>
+          <text class='order_num'>{{item.count}}</text>
+        </view>
+    </view>
+   <view class='order_count'>
+     <view class='count_mes'>共计{{length}}件,合计:￥{{total}}</view>
+   </view>
+</view>
+<view class='bg_hint'>
+  <view class='hint' style='{{shint}}'>{{hint}}</view>
+</view>
+<button formType="submit" type='primary' class='submit' style='{{pay_status}}'>付款</button>
+</form>

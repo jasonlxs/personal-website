@@ -1,0 +1,27 @@
+<!--bk_cart.wxml-->
+<!--购物车界面-->
+<form bindsubmit="formSubmit">
+<checkbox-group class='full_bill' name='checkbox'>
+  <label class="checkbox" wx:for="{{items}}" wx:key="*this">
+    <view class='bill_item'>
+      <checkbox value="{{item.id}}" checked="1"/>
+            <image class='bill_image' src="{{imgurl}}{{item.product.preview}}"></image>
+            <view class='bill_main'>
+                <view class='billing'>{{item.product.name}}</view>
+                <view class='billing'>库存:{{item.product.amount}}</view>
+                <view class='billing'>数量: <input id='{{item.id}}' bindblur='saveCount' value='{{item.count}}'/></view>
+                <view class='billing'>总计: <text>￥{{item.product.price*item.count}}</text> </view>
+            </view>
+    </view>
+  </label>
+  <!--付款订单按钮-->
+  <view class='pay_bill'>
+        <button formType="submit" type='primary' class='pay' hover-class="other-button-hover">结算    </button> 
+        <button class='pay' bindtap='del' hover-class="other-button-hover">删除</button>
+  </view>
+  <!-- 小提示 -->
+   <view class='bg_hint'>
+    <view class='hint' style='{{shint}}'>{{hint}}</view>
+  </view>
+</checkbox-group>
+</form>

@@ -1,0 +1,9 @@
+<!--index.wxml-->
+<view >
+   <view class="detail">
+    <view class="detail-title">{{info.title}}</view>
+    <view class="detail-time">{{info.create_at}}</view>
+    <view class="detail-img"><image class="detail-img" src="{{info.thumb}}"></image></view>
+    <view class="detail-content">{{info.content}}</view>
+  </view>
+</view>

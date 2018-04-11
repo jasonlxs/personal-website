@@ -1,0 +1,23 @@
+/* pages/bk_orderlist/bk_orderlist.wxss */
+
+.orderlist .orderone{
+   margin-top:20rpx;
+   font-size:35rpx;
+   padding:10rpx;
+   height: 220rpx;
+   border-bottom:1rpx solid #aaa;
+   background-color: #dcdcdc;
+}
+.orderlist .orderone .order1{
+    padding:30rpx;
+}
+.orderlist .orderone .orderps{
+  float: right;
+}
+
+.orderlist .tip{
+   text-align: center;
+   font-size: 40rpx;
+   background-color: #dcdcdc;
+   padding:20rpx;
+}

@@ -1,0 +1,18 @@
+<!--login.wxml-->
+<view class='bk_login'>
+  <view class='login_title'>登录博客书店</view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class='user'><text>账号</text><input type='text' placeholder='手机或邮箱' name='uname' /></view>
+       <view class='user'><text>密码</text><input type='password' placeholder='不少与6位' name='upwd' /></view>
+      <view class='user'><text>验证码</text><input type='text' placeholder='请输入验证吗' name='code'/><image class='verify' src='{{verify}}' bindtap="update_verify"></image></view>
+       
+      <view class="btn-area">
+        <button type='primary' formType="submit">登录</button>
+      </view>
+
+      <view class='register'><navigator url="../register/register" hover-class="navigator-hover">没有账号？点击注册</navigator></view>
+  </form>
+<view class='bg_hint'>
+  <view class='hint' style='{{shint}}'>{{hint}}</view>
+</view>
+</view>

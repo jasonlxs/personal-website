@@ -1,0 +1,42 @@
+/* login.wxss */
+
+/*登录标题*/
+.login_title{
+  text-align: center;
+  margin-top:150rpx;
+  font-size:50rpx;
+  font-weight: 600;
+}
+/*登录表单*/
+.bk_login form{
+   margin-top:100rpx;  
+   display: block;
+}
+.bk_login .user{
+   display: flex;
+   flex-direction: row;
+   padding:20rpx;
+   border-bottom:1rpx solid #dcdcdc;
+}
+.bk_login .user text{
+  font-weight: 600;
+  width:20%;
+}
+.bk_login input{
+   vertical-align: bottom;
+   margin-left: 10rpx;
+}
+/*验证码样式*/
+.bk_login .verify{
+    width:200rpx;
+    height:60rpx;
+}
+/*登录按钮样式*/
+.bk_login .register{
+    text-align: center;
+    color:cornflowerblue;
+    margin: 30rpx;
+}
+.btn-area button{
+     margin-top:30rpx;
+}

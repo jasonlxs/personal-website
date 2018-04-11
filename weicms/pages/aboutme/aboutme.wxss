@@ -1,0 +1,28 @@
+/* pages/aboutme/aboutme.wxss */
+.aboutme {
+  text-align: center;
+
+}
+.aboutme-img{
+     width:100px;
+     height:100px;
+     margin: 20px auto 10px;
+}
+.aboutme-title{
+    margin: 10px auto 50px;
+}
+.aboutme-intro{
+     display: block;
+     text-align: center;
+}
+.aboutme-info{
+    text-align: center;
+    margin: 50px auto 10px;
+}
+.aboutme-info view{
+    margin: 20px auto 10px;
+}
+.aboutme-info .aboutme-tel{
+    
+    padding-right: 50px;
+}

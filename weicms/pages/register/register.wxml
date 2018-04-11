@@ -1,0 +1,50 @@
+<!--注册方式选择-->
+<view class='register_way'>
+  <text class='re_title'>注册方式</text>
+  <view class='re_way' bindtap="register_mobile" >
+    手机号注册
+    <icon type="success" style='{{mobile}}' class='mobile' size="20"/>
+  </view>
+  <view class='re_way' bindtap="register_mail">
+    邮箱注册  
+    <icon type="success" style='{{mail}}' class='mail' size="20"/>
+  </view>
+</view>
+
+<form bindsubmit="formSubmit">
+    <!--手机注册页面-->
+    <view class='register_mobile' style='{{mobile}}'>
+      <view class='re_way'>手机号
+          <input type='text' name='{{phoneAttr}}' class='format' placeholder='请输入手机号' bindblur="mobileInputEvent"/>
+      </view>
+      <view class='re_way'>密码
+          <input type='password' name='upwd' class='format' placeholder='不少与6位'/>
+      </view>
+      <view class='re_way'>确认密码
+          <input type='password' name='cf_upwd' class='format' placeholder='不少与6位'/>
+      </view>
+      <view class='re_way'>
+          手机验证码
+          <input type='text' name='code' class='code_format' placeholder='请输入验证码' />
+          <view class='verify'>
+              <view catchtap='send_verify' hidden="{{send}}">发送验证码</view>
+              <view hidden="{{re_send}}">{{num}}s重新发送</view>
+          </view>
+      </view>
+    </view>
+    <!--邮箱注册页面-->
+    <view class='register_mail' style='{{mail}}'>
+      <view class='re_way'>邮箱<input type='text' name='{{emailAttr}}' class='format' placeholder='请输入邮箱'/></view>
+      <view class='re_way'>密码<input type='password' name='m_upwd' class='format' placeholder='不少与6位'/></view>
+      <view class='re_way'>确认密码<input type='password' name='mcf_upwd' class='format' placeholder='不少与6位'/></view>
+      <view class='re_way'>验证码<input type='text' name='m_code' class='code_format' placeholder='请输入验证码'/><view class='verify' bindtap="update_verify"><image src="{{verify}}"></image></view></view>
+    </view>
+    <!--注册按钮-->
+    <view class='register'>
+      <button type="primary" formType="submit">注册</button>
+      <navigator class='login' url="../bk_login/bk_login">已有账号？去登录</navigator>
+    </view>
+</form>
+<view class='bg_hint'>
+  <view class='hint' style='{{shint}}'>{{hint}}</view>
+</view>

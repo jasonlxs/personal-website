@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/bk_home/bk_home",
+    "pages/bk_detail/bk_detail",
+    "pages/bk_cart/bk_cart",
+    "pages/bk_order/bk_order",
+    "pages/bk_ordermake/bk_ordermake",
+    "pages/list/list",
+    "pages/index/index",
+    "pages/aboutme/aboutme",
+    "pages/detail/detail",
+    "pages/logs/logs",
+    "pages/bk_login/bk_login",
+    "pages/register/register",
+    "pages/bk_person/bk_person",
+    "pages/bk_orderlist/bk_orderlist",
+    "pages/bk_list/bk_list",
+    "pages/bk_newaddr/bk_newaddr",
+    "pages/bk_address/bk_address"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "Jasonlxs博客店",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#fff",
+    "selectedColor": "purple",
+    "backgroundColor": "#000",
+    "list": [
+      {
+        "pagePath": "pages/list/list",
+        "text": "首页",
+        "iconPath": "images/2.png",
+        "selectedIconPath": "images/3.png"
+      },
+      {
+        "pagePath": "pages/aboutme/aboutme",
+        "text": "关于",
+        "iconPath": "images/2.png",
+        "selectedIconPath": "images/3.png"
+      },
+      {
+        "pagePath": "pages/bk_home/bk_home",
+        "text": "博客书店",
+        "iconPath": "images/2.png",
+        "selectedIconPath": "images/3.png"
+      }
+    ]
+  },
+  "debug": true
+}

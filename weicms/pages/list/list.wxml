@@ -1,0 +1,19 @@
+<!--list.wxml-->
+<view class="list">
+     <!--模板调用-->
+       <view wx:for="{{listarr}}" wx:for-item="news" class="list-item">
+              <template is="list" data="{{...news}}"/>
+        </view>
+</view>
+       <view>{{text}}</view>
+<!--文章列表模板start-->
+   <template name="list">
+      <navigator url="../detail/detail?id={{id}}" hover-class="navigator-hover">
+        
+       <image src="{{thumb}}"  class="list-img"></image>
+      
+        <view class="list-title">{{title}}</view>
+          <view class="list-time">{{create_at}}</view>
+     </navigator>
+   </template>
+<!--文章列表模板end-->

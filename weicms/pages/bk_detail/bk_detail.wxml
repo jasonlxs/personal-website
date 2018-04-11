@@ -1,0 +1,25 @@
+<!--轮播图-->
+<swiper class='switchover' indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}" wx:key="*this">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" width="355" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class='detail_titlt'>
+  <text>{{item.name}}(余:{{item.inventory}})</text>
+    <view class='detail_price'>￥{{item.price}}</view>
+</view>
+
+<view class='detail_intro'>{{item.summary}}</view>
+<view class='intro_tag'>详细介绍</view>
+<view class='detail_info'>
+       {{item.summary}}
+</view>
+<view class='blank'></view>
+<view class='section'>
+  <button class='cart' bindtap="addCart" hover-class="other-button-hover">加入购物车</button>
+  <button class='amount' bindtap="amount" hover-class="other-button-hover">查看购物车({{num}})</button>
+</view>

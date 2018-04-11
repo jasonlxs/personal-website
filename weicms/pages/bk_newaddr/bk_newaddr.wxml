@@ -1,0 +1,35 @@
+<!--pages/bk_newaddr/bk_newaddr.wxml-->
+<form class='addAddr' bindsubmit="formSubmit" bindreset="formReset">
+    <view class='one'>
+        <text>联系人:</text>
+        <input name='contacts' placeholder="请填写联系人" value='{{contacts}}'></input>
+    </view>
+    <view class='one'>
+        <text>联系电话:</text>
+        <input name='phone' placeholder="请填写联系电话" value='{{phone}}'></input>
+    </view>
+    <view class='one'>
+        <text>邮编:</text>
+        <input name='postcode' placeholder="请填写邮编" value='{{postcode}}'></input>
+    </view>
+    
+
+    <view class="two">
+      <view class="section__title">选择省市区：</view>
+      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          当前选择：{{region[0]}}，{{region[1]}}，{{region[2]}}
+        </view>
+    </picker>
+    </view>
+
+    <view class='two'>
+        <view class="section__title">收货详细地址:</view> 
+        <textarea placeholder="填写收货地址" name="textarea" value='{{address}}' />
+    </view>
+
+  <view class='bg_hint'>
+    <view class='hint' style='{{shint}}'>{{hint}}</view>
+  </view>
+    <button class='submit' type='primary' formType="submit">提交</button>
+</form>

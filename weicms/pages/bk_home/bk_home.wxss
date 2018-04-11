@@ -1,0 +1,45 @@
+/* bk_home.wxss */
+.section .section__title{
+  padding:30rpx;
+  border-bottom:1px solid #aaa;
+  color:#aaa;
+  display: flex;
+  flex-direction: row;
+}
+.section .section__title text{
+   flex-grow:2
+}
+.section .login_register{
+  display: inline-block;
+  flex-grow:1
+}
+.section .login_register .login{
+  display: inline-block;
+  
+}
+.section .picker{
+   border-bottom:1px solid #aaa;
+   padding:30rpx;
+}
+.section .picker .gt{
+  
+  float: right;
+}
+.section .two{
+   margin-top:30rpx;
+   border-top:1px solid #aaa;
+}
+.section .two .two_li{
+   border-bottom:1px solid #aaa;
+   padding:30rpx;
+}
+.section .two .two_li {
+    display: inline-block;
+    font-size:35rpx;
+    font-weight: 600;
+    width:90%
+}
+.section .two .two_li text{
+    float:right;
+}
+

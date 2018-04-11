@@ -1,0 +1,36 @@
+/* pages/bk_newaddr/bk_newaddr.wxss */
+.addAddr{
+  padding:30rpx;
+  font-size:35rpx;
+}
+.addAddr input{
+  border-bottom:1rpx solid #dcdcdc;
+  vertical-align: bottom;
+  margin-left: 5rpx;
+  flex-grow: 2;
+}
+.addAddr text{
+   text-align: left;
+   flex-grow: 1;
+}
+ .addAddr textarea{
+    border:1rpx solid #dcdcdc;
+    height: 300rpx;
+ } 
+.addAddr .one{
+  padding:30rpx;
+  display: flex;
+  flex-direction: row;
+}
+.addAddr .two{
+  padding:30rpx;
+  
+}
+.addAddr .two .section__title{
+   margin-bottom: 20rpx;
+}
+.addAddr .submit{
+   position: absolute;
+   bottom: 0rpx;
+   width:100%;
+}

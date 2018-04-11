@@ -1,0 +1,52 @@
+/* 订单头*/
+.order .order_status{
+  height: 90rpx;
+  background-color: #F8F3FA;
+  border-bottom:1rpx solid #dcdcdc;
+}
+.order .order_status .orderNum{
+   padding:20rpx;
+   float:left;
+}
+.order .order_status .orderStatus{
+    color:red;
+    padding:20rpx;
+    float:right;
+}
+/* 订单项目*/
+.order .order_items{
+    display:flex;
+    flex-direction: row;
+    padding:20rpx;
+    border-bottom:1rpx solid #dcdcdc;
+}
+.order .order_items .order_img{
+   flex-grow: 0.5;
+   width:100rpx;
+   height:100rpx;
+}
+.order .order_items .order_name{
+    flex-grow: 5;
+    font-size: 35rpx;
+    padding:20rpx;
+}
+.order .order_items .order_price{
+    flex-grow: 1;
+    padding:20rpx;
+}
+.order .order_items .order_price .order_num{
+    color:green;
+}
+/* 订单合计*/
+.order .order_count .count_mes{
+  font-size:35rpx;
+  color:#aaa;
+  float:right;
+  padding:20rpx;
+}
+
+.submit{
+  position: fixed;
+  top:90%;
+  width:100%; 
+}

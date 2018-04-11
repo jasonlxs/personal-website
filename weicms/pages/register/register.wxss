@@ -1,0 +1,80 @@
+/* 注册方式样式 */
+.register_way{
+   margin-top:50rpx;
+}
+.register_way .re_title{
+   display: block;
+   font-size:30rpx;
+   padding:20rpx;
+   border-bottom:1rpx solid #aaa;
+}
+.register_way .re_way .mobile{
+   float:right;
+}
+.register_way .re_way .mail{
+  float:right;
+}
+
+
+/*注册条目公共格式*/
+.re_way{
+   font-weight: 600;
+   padding:20rpx;
+   border-bottom:1rpx solid #aaa;
+}
+.re_way .verify{
+   font-size:35rpx;
+   float:right;
+   vertical-align: bottom;
+   line-height: 50rpx;
+   color:cornflowerblue;
+}
+.re_way .verify image{
+    width:200rpx;
+    height:60rpx;  
+}
+.code_format{
+    display: inline-block;
+    margin-left: 10rpx; 
+    vertical-align: bottom;
+    width:300rpx;
+}
+
+
+/*手机注册体*/
+.register_mobile{
+   margin-top:50rpx;
+   border-top:1rpx solid #aaa;
+   
+}
+.register_mobile .format{
+   display: inline-block;
+   margin-left: 10rpx; 
+   vertical-align: bottom;
+   width:70%;
+}
+/*邮件注册体*/
+.register_mail{
+   display: none;
+   margin-top:50rpx;
+   border-top:1rpx solid #aaa; 
+}
+.register_mail .format{
+   display: inline-block;
+   margin-left: 10rpx; 
+   vertical-align: bottom;
+   width:70%;
+}
+
+
+
+/*注册按钮*/
+.register{
+  margin-top:20rpx;
+}
+.register .login{
+  padding:20rpx;
+  color:cornflowerblue;
+  text-align: center;
+}
+

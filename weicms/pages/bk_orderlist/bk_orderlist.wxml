@@ -1,0 +1,18 @@
+<!--pages/bk_orderlist/bk_orderlist.wxml-->
+<view class='orderlist'>
+<view wx:for='{{item}}' wx:key="unique">
+    <navigator class='orderone' url='../bk_ordermake/bk_ordermake?oid={{item.id}}'>
+    <view class='order1'>
+      <view>{{index+1}}.订单编号：{{item.order_no}}</view>
+      <view>日期：{{item.create_at}}</view>
+      <view class='orderps'>
+        <view>总价格：<text style='color:green'>￥{{item.total_price}}</text></view>
+        <view>状态：<text style='color:red'>{{item.status}}</text></view>
+      </view>
+      
+    </view>
+    </navigator>
+  </view>
+
+<view class='tip' style="{{tip}}">没有订单</view>
+</view>

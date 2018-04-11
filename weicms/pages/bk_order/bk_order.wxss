@@ -1,0 +1,75 @@
+/* bk_order.wxss */
+.order{
+   margin-top:25rpx;
+   border-top:2rpx solid #aaa;
+}
+/*付款条目*/
+.order_item{
+   display: flex;
+   flex-direction: row;
+   padding:35rpx;
+   border-bottom:2rpx solid #aaa;
+}
+.order_item .order_img{
+  width:110rpx;
+  height:110rpx;
+}
+.order_item .order_name{
+   font-size:30rpx;
+   padding:30rpx;
+   font-weight:600;
+}
+.order_item .order_price{
+   margin:30rpx 0 0 40rpx;
+   display: flex;
+   flex-direction: row;
+}
+.order_item .order_price .per{
+   color:red;
+}
+.order_item .order_price .count{
+  color:green;
+}
+
+/*支付方式*/
+.order .pay .pay_way{
+  padding:30rpx;
+  border-bottom:2rpx solid #aaa;
+  color:#aaa;
+}
+.order .pay .picker{
+   padding:30rpx;
+   font-weight: 600;
+   border-bottom:2rpx solid #aaa;
+}
+.order .pay_count{
+   padding:30rpx;
+   border-bottom:2rpx solid #aaa;
+   font-weight: 600;
+}
+.order .pay_count text{
+    float:right;
+    color:red;
+}
+/* 设置收货地址 */
+.order .address .pay_way{
+  padding:30rpx;
+  border-bottom:2rpx solid #aaa;
+  color:#aaa;
+}
+.order .address .cli{
+    padding:20rpx;
+    border-bottom:2rpx solid #aaa;
+    
+}
+.order .address .cli button{
+ 
+    vertical-align: middle;
+}
+
+/*提交订单*/
+.order .submit{
+  position: fixed;
+  top:90%;
+  width:100%; 
+}

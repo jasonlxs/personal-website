@@ -1,0 +1,17 @@
+<!--bk_list.wxml-->
+<button class='def' type="primary"  bindtap="retOrd">返回</button>
+<text class='list_title'>书籍列表</text>
+<!--1-->
+<view wx:for="{{item}}" wx:key="*this">
+<navigator url="../bk_detail/bk_detail?id={{item.id}}">
+  <view class='bk_list'>
+      <view><image class='list_img' src="{{imageUrl}}{{item.preview}}"></image></view>
+      <view class='ti_pr'>
+          <view class='bk_title'>{{item.name}}</view>
+          <view class='bk_price'>￥{{item.price}}</view>
+      </view>
+      <view class='bk_intro'>{{item.summary}}</view>
+  </view>
+</navigator>
+</view>
+
