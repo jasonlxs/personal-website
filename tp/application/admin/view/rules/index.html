@@ -1,0 +1,124 @@
+{{layout name='layout'/ }}
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 权限管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" id='btn-refresh' onclick="location.reload();"  title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c">
+        <form class="Huiform" method="post" action="" target="_self">
+            <input type="text" class="input-text" style="width:250px" placeholder="权限名称" id="" name="">
+            <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜权限节点</button>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick='admin_permission_add("添加权限节点","0","","310")' class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限节点</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+
+<article class="page-container">
+        <div class="row cl">
+            {{volist name='rules' id='vo'}}<!-- 第一级 -->
+                <dl class="permission-list">
+                    <dt>
+                        <label>{{$vo.title}}</label>
+                            <span>
+                                   [<a title="添加子分类" href="javascript:;" onclick='admin_permission_add("添加子分类","{{$vo.id}}","","310")' class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe604;</i>
+                                    </a>
+                                    <a title="编辑" href="javascript:;" onclick='admin_permission_edit("角色编辑","{{$vo.id}}","","310")' class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>
+                                    </a>
+                                    <a title="删除" href="javascript:;" onclick="admin_permission_del(this,'{{$vo.id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
+                                    </a>]
+                            </span>
+                    </dt>
+                    <dd>
+                        {{volist name="$vo.child" id='two'}}<!-- 第二级 -->
+                        <dl class="cl permission-list2">
+                            <dt>
+                                <label class="">→ {{$two.title}}</label>
+                                <span>
+                                       [<a title="添加子分类" href="javascript:;" onclick='admin_permission_add("添加子分类","{{$two.id}}","","310")' class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe604;</i>
+                                        </a>
+                                        <a title="编辑" href="javascript:;" onclick='admin_permission_edit("角色编辑","{{$two.id}}","","310")' class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>
+                                        </a>
+                                        <a title="删除" href="javascript:;" onclick="admin_permission_del(this,'{{$two.id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
+                                        </a>]
+                                 </span>
+                            </dt>
+
+                            <dd>
+                                {{volist name='$two.child' id='three'}}<!-- 第三级 -->
+                                    <label style="margin-left: 80px;">>> {{$three.title}}</label>
+                                        <span>
+                                            [<a title="编辑" href="javascript:;" onclick='admin_permission_edit("角色编辑","{{$three.id}}","","310")' class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i>
+                                            </a>
+                                            <a title="删除" href="javascript:;" onclick="admin_permission_del(this,'{{$three.id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
+                                            </a>]
+                                        </span>
+                                {{/volist}}
+                            </dd>
+                        </dl>
+                        {{/volist}}
+                    </dd>
+                </dl>
+                {{/volist}}
+        </div>
+</article>
+
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(".permission-list dt input:checkbox").click(function(){
+        $(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+    });
+    $(".permission-list2 dd input:checkbox").click(function(){
+        var l =$(this).parent().parent().find("input:checked").length;
+        var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+        if($(this).prop("checked")){
+            $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+            $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+        }
+        else{
+            if(l==0){
+                $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+            }
+            if(l2==0){
+                $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+            }
+        }
+    });
+});
+/*管理员-权限-添加*/
+function admin_permission_add(title,id,w,h){
+    var url="{{:url('admin/rules/insert','','')}}"+'/id/'+id;
+    layer_show(title,url,w,h);
+}
+/*管理员-权限-编辑*/
+function admin_permission_edit(title,id,w,h){
+
+    var url="{{:url('admin/rules/edit','','')}}"+'/id/'+id;
+    layer_show(title,url,w,h);
+}
+
+/*管理员-权限-删除*/
+function admin_permission_del(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+            type: 'POST',
+            url: "{{:url('admin/rules/del')}}",
+            data:{id:id},
+            dataType: 'json',
+            success: function(data){
+                data=JSON.parse(data);
+                if(data.status==5){
+                    $(obj).parents("tr").remove();
+                    layer.msg(data.message,{icon:1,time:1000});
+                }else{
+                    layer.msg(data.message,{icon:1,time:1000});
+                }
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    });
+}
+</script>
+<!--/请在上方写此页面业务相关的脚本-->

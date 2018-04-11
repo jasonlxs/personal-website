@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>websocket</title>
+</head>
+<body>
+    <h1>Echo Test</h1>
+    <input type="text" id='sendTxt'>
+    <button id="sendBtn">发送</button>
+
+    <script type="text/javascript">
+        // 先发起一个附带websocket协议请求的http请求
+        var websocket=new WebSocket("ws://localhost:4000")
+        //强制关闭浏览器  调用websocket.close（）,进行正常关闭
+        window.onunload = function() {
+                websocket.close();
+        }
+        function showMessage(str){
+          var div=document.createElement('div')
+          div.innerHTML=str
+          document.body.appendChild(div);
+
+        }
+        //等待服务器返回websocket协议确认，即可开始websocket通信
+        websocket.onopen=function(){
+            console.log('websocket open')
+            document.getElementById('sendBtn').onclick=function(){
+            var txt=document.getElementById('sendTxt').value
+            if(txt){
+              websocket.send(txt)
+                }
+            }
+         }
+        websocket.onclose=function(){
+             console.log('websocket close')
+        }
+        websocket.onmessage=function(e){
+            console.log(e.data)
+            showMessage(e.data)
+        }
+
+        websocket.onerror = function(e){
+                console.log(e);
+        }
+    </script>
+</body>
+</html>

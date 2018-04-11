@@ -1,0 +1,121 @@
+{{layout name="layout" /}}
+
+<div class="pd-20">
+  <div style='padding:8px;'>所选文章：{{$title}}</div>
+  <div class="text-c"> 日期范围：
+    <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
+    -
+    <input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
+    <input type="text" class="input-text" style="width:250px" placeholder="输入评论关键字" id="" name=""><button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜评论</button>
+
+  </div>
+  <div class="cl pd-5 bg-1 bk-gray mt-20">
+    <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="icon-trash"></i> 批量删除</a>
+    <a href="javascript:;" onclick="user_add('550','','添加用户','user-add.html')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加评论</a></span>
+    <span class="r">共有数据：<strong>{{$count}}</strong> 条</span>
+  </div>
+  <table class="table table-border table-bordered table-hover table-bg table-sort">
+    <thead>
+      <tr class="text-c">
+        <th width="25"><input type="checkbox" name="" value=""></th>
+        <th width="80">ID</th>
+        <th width="200">内容</th>
+        <th width="40">所属用户</th>
+        <th width="90">所属文章</th>
+        <th width="150">父级ID</th>
+        <th width="100">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{volist name='$comment' id='vo'}}
+        <tr class="text-c">
+        <td><input type="checkbox" value="1" name=""></td>
+        <td>{{$vo.id}}</td>
+        <td>{{$vo.content}}</td>
+        <td>{{$vo.mid}}</td>
+        <td>{{$vo.aid}}</td>
+        <td>{{$vo.pid}}</td>
+        <td class="f-14 user-manage">
+          <a title="编辑" href="javascript:;" onclick="com_edit('{{$vo.id}}','550','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+          <a title="删除" href="javascript:;" onclick="com_del(this,'{{$vo.id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+        </td>
+      </tr>
+            {{if condition='$vo.child!=null'}}
+               {{volist name='$vo.child' id='ch'}}
+                   <tr class="text-c">
+                    <td><input type="checkbox" value="1" name=""></td>
+                    <td>{{$ch.id}}</td>
+                    <td>{{$ch.content}}</td>
+                    <td>{{$ch.mid}}</td>
+                    <td>{{$ch.aid}}</td>
+                    <td>{{$ch.pid}}</td>
+                    <td class="f-14 user-manage">
+                      <a title="编辑" href="javascript:;" onclick="com_edit('{{$ch.id}}','550','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                      <a title="删除" href="javascript:;" onclick="com_del(this,'{{$ch.id}}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    </td>
+                  </tr>
+                {{/volist}}
+            {{/if}}
+    {{/volist}}
+    </tbody>
+  </table>
+  <div class='page'>{{$page->show(1)}}</div>
+</div>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+window.onload = (function(){
+    // 分页optional set
+    pageNav.pre="&lt;上一页";
+    pageNav.next="下一页&gt;";
+    // p,当前页码,pn,总页面
+    pageNav.fn = function(p,pn){$("#pageinfo").text("当前页:"+p+" 总页: "+pn);};
+    //重写分页状态,跳到第三页,总页33页
+    pageNav.go(1,13);
+});
+//评论编辑
+function com_edit(id,w,h){
+   var title='评论编辑';
+   var url="{{:url('admin/comment/edit','','')}}"+'/id/'+id;
+   layer_show(title,url,w,h);
+}
+//评论删除
+function com_del(obj,id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+            type: 'POST',
+            url: "{{:url('admin/comment/del')}}",
+            data:{id:id},
+            dataType: 'json',
+            success: function(data){
+                data=JSON.parse(data);
+                if(data.status==5){
+                  $(obj).parents("tr").remove();
+                  layer.msg(data.message,{icon:1,time:1000});
+                }else{
+                  layer.msg(data.message,{icon:1,time:1000});
+                }
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    });
+}
+//分页设置
+// $('.table-sort').dataTable({
+//   "lengthMenu":false,//显示数量选择
+//   "bFilter": false,//过滤功能
+//   "bPaginate": false,//翻页信息
+//   "bInfo": false,//数量信息
+//   "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+//   "bStateSave": true,//状态保存
+//   "aoColumnDefs": [
+//     //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+//     {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+//   ]
+// });
+</script>

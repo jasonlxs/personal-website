@@ -1,0 +1,112 @@
+{{layout name='layout' /}}
+
+
+    <!-- start site's main content area -->
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content">
+
+                    {{volist name='article' id='vo'}}
+                    <article id=109 class="post tag-android tag-ke-hu-duan">
+
+                        <div class="post-head">
+                            <h1 class="post-title"><a target='_blank' href="{{:url('index/detail/index',['id'=>$vo.id])}}">{{$vo.title}}</a></h1>
+                            <div class="post-meta">
+                                <span class="author">作者：<a href="/author/wangsai/">{{$vo.author}}</a></span> &bull;
+                                <time class="post-date" datetime="2017年11月8日星期三下午4点44分" title="2017年11月8日星期三下午4点44分">{{$vo.create_at}}</time>
+                            </div>
+                        </div>
+                        <div class="featured-media">
+                            <a href="/android-app-for-ghost/"><img src="__PUBLIC__/uploads/{{$vo.thumb}}" alt="Jasonlxs图片来了！"></a>
+                        </div>
+                        <div class="post-content">
+                            <p>{{$vo.intro}}</p>
+                        </div>
+                        <div class="post-permalink">
+                            <a href="{{:url('index/detail/index',['id'=>$vo.id])}}" target='_blank' class="btn btn-default">阅读全文</a>
+                        </div>
+
+                        <footer class="post-footer clearfix">
+                            <div class="pull-left tag-list">
+                                <i class="Hui-iconfont">&#xe64b;</i>
+                                {{volist name='$vo.attr' id='at'}}
+                                    <a style='color: {{$at.color}}' href="javascript:">[{{$at.name}}]</a>
+                                {{/volist}}
+                            </div>
+                            <div class="pull-right share">
+                            </div>
+                        </footer>
+
+                    </article>
+                    {{/volist}}
+                    <nav class="pagination" role="navigation">
+                        <span class="page-number">{{$page->show(2)}}</span>
+                    </nav>
+                </main>
+
+        <aside class="col-md-4 sidebar">
+                                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <div class="widget">
+                    <h4 class="title">搜索</h4>
+                    <div action="{{:url('index/search/index')}}" class="content download">
+                         <input class="btn-block" type="text" name="search"/>
+                         <input id='search' class="btn btn-default btn-block" type="submit" value="提交"/>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start tag cloud widget -->
+                <div class="widget">
+                    <h4 class="title">最新文章</h4>
+                    <div class="content community">
+                        {{volist name='newArticle' id='vo'}}
+                            <p><i class="Hui-iconfont">&#xe622;</i> <a style='color:#000' href="{{:url('index/detail/index',['id'=>$vo.id])}}">{{$vo.title}}</a></p>
+                        {{/volist}}
+                        <p><a href="http://wenda.ghostchina.com/" title="Ghost中文网问答社区" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i class="fa fa-comments"></i> 问答社区</a></p>
+                        <p><a href="http://weibo.com/ghostchinacom" title="Ghost中文网官方微博" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '官方微博'])"><i class="fa fa-weibo"></i> 官方微博</a></p>
+                    </div>
+                </div>
+                <!-- end tag cloud widget -->
+
+                <!-- start tag cloud widget -->
+                <div class="widget">
+                    <h4 class="title">标签云</h4>
+                    <div class="content tag-cloud">
+                        <a href="/tag/ke-hu-duan/">客户端</a>
+                <a href="/tag/android/">Android</a>
+                <a href="/tag/jquery/">jQuery</a>
+                <a href="/tag/ghost-0-7-ban-ben/">Ghost 0.7 版本</a>
+                <a href="/tag/opensource/">开源</a>
+                <a href="/tag/zhu-shou-han-shu/">助手函数</a>
+                <a href="/tag/tag-cloud/">标签云</a>
+                <a href="/tag/navigation/">导航</a>
+                <a href="/tag/customize-page/">自定义页面</a>
+                <a href="/tag/static-page/">静态页面</a>
+                <a href="/tag/roon-io/">Roon.io</a>
+                <a href="/tag/configuration/">配置文件</a>
+                <a href="/tag/upyun/">又拍云存储</a>
+                <a href="/tag/upload/">上传</a>
+                <a href="/tag/handlebars/">Handlebars</a>
+                <a href="/tag/email/">邮件</a>
+                <a href="/tag/shortcut/">快捷键</a>
+                <a href="/tag/yong-hu-zhi-nan/">用户指南</a>
+
+
+                        <a href="/tag-cloud/">...</a>
+                    </div>
+                </div>
+                <!-- end tag cloud widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+<!-- end widget --></aside>
+
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,329 @@
+{{layout name='layout' /}}
+
+
+    <!-- start site's main content area -->
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <!-- 左侧 -->
+                <main class="col-md-8 main-content">
+                    <article id=109 class="post tag-android tag-ke-hu-duan">
+                        <div style="height: 50px;">
+                          {{if condition='$pre!=null'}}
+                            <a href="{{:url('Index/Detail/index',['id'=>$pre.id])}}" title="{{$pre.title}}"><<上一篇</a>
+                          {{/if}}
+                          {{if condition='$next!=null'}}
+                            <a style="float:right;" href="{{:url('Index/Detail/index',['id'=>$next.id])}}" title="{{$next.title}}">下一篇>></a>
+                          {{/if}}
+                        </div>
+                         <input type='hidden' name='aid' value='{{$article.id}}'>
+                        <div class="post-head">
+                            <h1 class="post-title"><a href="javascript:">{{$article.title}}</a></h1>
+                            <div class="post-meta">
+                                <span class="author">作者：<a href="/author/wangsai/">{{$article.author}}</a></span> &bull;
+                                <time class="post-date" datetime="2017年11月8日星期三下午4点44分" title="2017年11月8日星期三下午4点44分">{{$article.create_at}}</time>
+                            </div>
+                        </div>
+                        <div class="featured-media">
+                            <a href="/android-app-for-ghost/"><img width='300' height="300" src="__PUBLIC__/uploads/{{$article.thumb}}" alt="暂无图片"></a>
+                        </div>
+                        <div class="post-content">
+                                {{$article.content}}
+                        </div>
+                        <div class="post-footer clearfix">
+                            <div class="pull-left tag-list">
+                                <i class="Hui-iconfont">&#xe64b;</i>
+                                <a href="/tag/android/">分类:{{$article.d_bcategory.cname}}</a> <a href="/tag/ke-hu-duan/">点击量:{{$article.click}}</a>
+                            </div>
+                            <div class="pull-right share">
+                            </div>
+                        </div>
+
+                        <div style='text-align: center' class="post-footer">
+                            <a id='like' class="btn btn-default">{{if condition="$islike"}}取消点赞{{else /}}点赞{{/if}}</a>
+                        </div>
+
+
+                         <!--  发表评论 -->
+                       <footer class="post-footer" >
+                            <div class="left_login">
+                             {{if condition="$uid==null"}}
+                                <a id='com_login' style='border:1px solid;border-radius:10px;padding:5px;display: inline-block;margin:5px' class=''>登录</a>
+                             {{else /}}
+                                <a id='uname' style='border:1px solid;border-radius:10px;padding:5px;display: inline-block;margin:5px' class=''>某某:{{$uname}}</a>
+                             {{/if}}
+                            </div>
+                            <div id='com_area' style='padding:10px;'>
+                                 <textarea style="display:block;width:100%;border:1px solid #aaa;" name="com_area"></textarea>
+
+                                 <button id='com_submit' style='margin:10px 0 10px' class='btn btn-default'>吐槽一下</button>
+                            </div>
+                       </footer>
+                        <!-- 评论列表 -->
+                        <footer class="post-footer">
+                            <a style='border:1px solid;border-radius:10px;padding:5px;display: inline-block;margin:5px' href='javascript:'>评论列表</a>
+
+                            <ul style='list-style: none;margin:0;'>
+                               {{volist name='comment' id='vo'}}
+                                <li style="padding:30px 0;border-bottom:1px solid #dcdcdc;">
+                                   <img src='__PUBLIC__/index/image/0.png'/>
+                                   <a  style='margin-left:20px' class="rep_name" href="">{{$vo.member}}</a>&nbsp;&nbsp;{{if condition='isset($vo.color)'}}<span style="color:{{$vo.color}};">[吐槽属于您]</span>{{/if}}
+                                   <span style='float: right;'>{{$vo.create_at}}</span>
+                                   <p style='margin-left:70px;'>{{$vo.content}}</p>
+                                   <div style='float: right;'>
+                                       <a class='com_reply'>回复</a>
+                                       <a class='com_like'>{{if condition="isset($vo.islike)"}}取消点赞{{else /}}点赞{{/if}}</a>
+                                       <input type='hidden' value='{{$vo.id}}'>
+                                   </div>
+                                </li>
+                                     <ul style='list-style: none;'>
+                                        {{volist name='$vo.child' id='ch'}}
+                                         <li style="padding:30px 0;border-bottom:1px solid #dcdcdc;">
+                                           <img src='__PUBLIC__/index/image/0.png'/>
+                                           <a  style='margin-left:20px' class="rep_name" href="">{{$ch.member}}</a>&nbsp;&nbsp;{{if condition='isset($vo.color)'}}<span style="color:{{$vo.color}}">[吐槽属于您]</span>{{/if}}
+                                           <span style='float: right;'>{{$ch.create_at}}</span>
+                                           <p style='margin-left:70px;'>{{$ch.content}}</p>
+                                           <div style='float: right;'>
+                                               <a class='com_reply'>回复</a>
+                                               <a class='com_like'>{{if condition="isset($ch.islike)"}}取消点赞{{else /}}点赞{{/if}}</a>
+                                               <input type='hidden' value='{{$ch.id}}'>
+                                          </div>
+                                        </li>
+                                        {{/volist}}
+                                     </ul>
+                                {{/volist}}
+                            </ul>
+
+                        </footer>
+
+                    </article>
+
+                  <!--   <nav class="pagination" role="navigation">
+                        <span class="page-number">第 1 页 &frasl; 共 9 页</span>
+                            <a class="older-posts" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+                    </nav> -->
+                </main>
+          <!-- 右侧 -->
+          <aside class="col-md-4 sidebar">
+                                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <div class="widget">
+                    <h4 class="title">搜索</h4>
+                    <div class="content download">
+                         <input class="btn-block" type="text" name="search"/>
+                         <input class="btn btn-default btn-block" type="submit" value="提交"/>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start tag cloud widget -->
+                <div class="widget">
+                    <h4 class="title">最新文章</h4>
+                    <div class="content community">
+                        {{volist name='newArticle' id='vo'}}
+                            <p><i class="Hui-iconfont">&#xe622;</i> <a style='color:#000' href="{{:url('index/detail/index',['id'=>$vo.id])}}">{{$vo.title}}</a></p>
+                        {{/volist}}
+                        <p><a href="http://wenda.ghostchina.com/" title="Ghost中文网问答社区" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i class="fa fa-comments"></i> 问答社区</a></p>
+                        <p><a href="http://weibo.com/ghostchinacom" title="Ghost中文网官方微博" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '官方微博'])"><i class="fa fa-weibo"></i> 官方微博</a></p>
+                    </div>
+                </div>
+                <!-- end tag cloud widget -->
+
+                <!-- start tag cloud widget -->
+                <div class="widget">
+                    <h4 class="title">标签云</h4>
+                    <div class="content tag-cloud">
+                        <a href="/tag/ke-hu-duan/">客户端</a>
+                <a href="/tag/android/">Android</a>
+                <a href="/tag/jquery/">jQuery</a>
+                <a href="/tag/ghost-0-7-ban-ben/">Ghost 0.7 版本</a>
+                <a href="/tag/opensource/">开源</a>
+                <a href="/tag/zhu-shou-han-shu/">助手函数</a>
+                <a href="/tag/tag-cloud/">标签云</a>
+                <a href="/tag/navigation/">导航</a>
+                <a href="/tag/customize-page/">自定义页面</a>
+                <a href="/tag/static-page/">静态页面</a>
+                <a href="/tag/roon-io/">Roon.io</a>
+                <a href="/tag/configuration/">配置文件</a>
+                <a href="/tag/upyun/">又拍云存储</a>
+                <a href="/tag/upload/">上传</a>
+                <a href="/tag/handlebars/">Handlebars</a>
+                <a href="/tag/email/">邮件</a>
+                <a href="/tag/shortcut/">快捷键</a>
+                <a href="/tag/yong-hu-zhi-nan/">用户指南</a>
+
+
+                        <a href="/tag-cloud/">...</a>
+                    </div>
+                </div>
+                <!-- end tag cloud widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+<!-- end widget --></aside>
+
+            </div>
+        </div>
+</section>
+
+<script>
+    // $(function(){
+    //     var version = '0.7.4';
+    //     var $download =  $('.download > a').first();
+    //     var html = $download.html().replace(/\d\.\d\.\d/, version);
+
+    //     $download.html(html);
+    // });
+    // $(function(){
+    //style="width:300px;height:300px;position:absolute;border:1px solid;"
+    //style="position:absolute;right:0;top:0;"
+
+
+
+//点赞函数
+/**
+ * @Author    Hybrid
+ * @DateTime  2018-03-31
+ * @copyright [copyright]
+ * @license   [license]
+ * @version   [version]
+ * @param     {[type]}    obj   [description]
+ * @param     {[type]}    value [0是文章点赞，1是评论点赞]
+ * @return    {[type]}          [description]
+ */
+function islike(obj,value){
+
+   $(obj).click(function(event){
+           var me=this;
+           //检验是否登录
+           $.get("{{:url('index/detail/islogin')}}",{},function(data){
+
+               if(data==1){
+                    if(value){
+                        //评论点赞ID
+                        var i=0;
+                        var id={cid:$(me).next().val()};
+                    }else{
+                        //文章ID
+                        var i=1;
+                        var id={id:$("input[name='aid']").val()};
+                    }
+                   //请求点赞
+                   $.post("{{:url('index/detail/islike')}}",id,function(data){
+                          data=JSON.parse(data);
+                          if(data.status==1||data.status==2){
+                              if(i){
+                                showtip(data.message);
+                                //改变文章点赞字样
+                                $('#like').html(data.str);
+                              }else{
+                                showtip(data.message);
+                                //改变评论点赞字样
+                                $(me).html(data.str);
+                              }
+                          }else{
+                            //点赞取消点赞失败
+                            showtip(data.message);
+                          }
+                   })
+               }else{
+                 showWindow();
+               }
+           });
+    });
+}
+//吐槽函数
+function submit_com(obj){
+  $(obj).click(function(){
+         //检验是否登录
+       $.get("{{:url('index/detail/islogin')}}",{},function(data){
+           if(data==1){
+               var content=$("textarea[name='com_area']").val();
+               if(content==''){
+                    showtip('吐槽内容不能为空！');
+                    return;
+               }
+               //添加父级评论
+               $.post("{{:url('index/detail/addComment')}}",{id:$("input[name='aid']").val(),content:content},function(data){
+                      data=JSON.parse(data);
+                      if(data.status==4){
+                          showtip(data.message);
+                          $("textarea[name='com_area']").val('');
+                          setTimeout(function(){
+                              location.reload();
+                          },1000);
+                      }
+               })
+           }else{
+             showWindow();
+           }
+       });
+    });
+}
+
+$(function(){
+
+    // 点击登录
+    $('#com_login').click(function(){
+        showWindow();
+    });
+
+    //文章点赞
+    islike( $('#like'),0);
+    //评论点赞
+    islike($('.com_like'),1);
+
+    //新吐槽
+    submit_com($('#com_submit'));
+    //回复评论
+    $('.com_reply').click(function(event) {
+        var me=this;
+        $.get("{{:url('index/detail/islogin')}}",{},function(data){
+           if(data){
+               //克隆一个回复框并处理数据
+               var area=$('#com_area').clone();
+
+               // 添加一个取消按钮
+               var cancel=$('<button style="margin:10px 0 10px" class="btn btn-default" onclick="$(this).parent().remove();">取消</button>');
+               area.append(cancel);
+
+               //获取该评论的ID值
+               var pid=$(me).next().next().val();
+               //添加点击提交数据
+               area.find("button[id='com_submit']").eq(0).on('click',function(){
+                      var content=area.find("textarea[name='com_area']").eq(0).val();
+                      if(content==''){
+                            showtip('吐槽内容不能为空！');
+                            return;
+                       }
+                       //添加子级评论
+                       $.post("{{:url('index/detail/addComment')}}",{id:$("input[name='aid']").val(),content:content,pid:pid},function(data){
+                              data=JSON.parse(data);
+                              if(data.status==4){
+                                  showtip(data.message);
+                                  $(me).parent().next().remove();
+                                  setTimeout(function(){
+                                    location.reload();
+                                  },1000);
+                              }
+                       })
+               });
+               //将回复框添加到页面
+               $(me).parent().after(area);
+           }else{
+              showWindow();
+           }
+
+       })
+
+    });
+});
+</script>
+
+
+
+

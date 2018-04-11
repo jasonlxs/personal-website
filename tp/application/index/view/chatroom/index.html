@@ -1,0 +1,217 @@
+{{layout name='layout' /}}
+
+
+    <!-- start site's main content area -->
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content">
+
+                    <article id=109 class="post tag-android tag-ke-hu-duan">
+
+                        <div class="post-head">
+                            <h1 class="post-title"><a target='_blank' href="">吐槽大会</a></h1>
+                            <div class="post-meta">
+                                <span class="author"><i class="Hui-iconfont">&#xe690;</i>   <a href="javascript:"><script>getJsTime()</script></a></span> &bull;
+                                <time class="post-date" datetime="2017年11月8日星期三下午4点44分" title="2017年11月8日星期三下午4点44分"><script>getJsTime(1)</script></time>
+                            </div>
+                        </div>
+                        <div class="post-content" style="border:1px solid #dcdcdc;margin-top:20px;">
+                            <div class="post-permalink" style='padding:10px;border-bottom:1px solid #dcdcdc;'>
+                               <!--  <a  id='comeIn' target='_black' class="btn btn-default">进入大会</a>
+                                <a  id='leftOut' target='_black' class="btn btn-default">退出大会</a> -->
+                                公告：文明吐槽，减少生活中的尴尬！(游客发言的数据将不保存！如需请登录)
+                            </div >
+                            <div id='chatContent' style="background-color:#E3F0FC;overflow:auto;height:500px;border:1px solid #dcdcdc;">
+                                {{volist name="chat" id='vo'}}
+                                    <div style='padding:8px;'><i class="Hui-iconfont">&#xe60d;</i> {{$vo.chatContent}}</div>
+                                {{/volist}}
+                            </div>
+                            <div  id="chatScanf" style="border-top:1px solid #dcdcdc;">
+                                <textarea id='sendTxt' name="com_area" style="display: inline-block;width:79%;height:100px;border:0;"></textarea>
+                                <button id='sendBtn' type='submit' class="btn btn-default" style="display: inline-block;vertical-align:top;width:19%;height:100px;">吐槽</button>
+                            </div>
+                        </div>
+                    </article>
+                </main>
+
+        <aside class="col-md-4 sidebar">
+                                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+                <div class="widget">
+                    <h4 class="title">搜索</h4>
+                    <div action="{{:url('index/search/index')}}" class="content download">
+                         <input class="btn-block" type="text" name="search"/>
+                         <input id='search' class="btn btn-default btn-block" type="submit" value="提交"/>
+                    </div>
+                </div>
+                <!-- end widget -->
+
+                <!-- start tag cloud widget -->
+                <div class="widget">
+                    <h4 class="title">最新文章</h4>
+                    <div class="content community">
+                        {{volist name='newArticle' id='vo'}}
+                            <p><i class="Hui-iconfont">&#xe622;</i> <a style='color:#000' href="{{:url('index/detail/index',['id'=>$vo.id])}}">{{$vo.title}}</a></p>
+                        {{/volist}}
+                        <p><a href="http://wenda.ghostchina.com/" title="Ghost中文网问答社区" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i class="fa fa-comments"></i> 问答社区</a></p>
+                        <p><a href="http://weibo.com/ghostchinacom" title="Ghost中文网官方微博" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '官方微博'])"><i class="fa fa-weibo"></i> 官方微博</a></p>
+                    </div>
+                </div>
+                <!-- end tag cloud widget -->
+
+                <!-- start tag cloud widget -->
+                <div class="widget">
+                    <h4 class="title">标签云</h4>
+                    <div class="content tag-cloud">
+                        <a href="/tag/ke-hu-duan/">客户端</a>
+                <a href="/tag/android/">Android</a>
+                <a href="/tag/jquery/">jQuery</a>
+                <a href="/tag/ghost-0-7-ban-ben/">Ghost 0.7 版本</a>
+                <a href="/tag/opensource/">开源</a>
+                <a href="/tag/zhu-shou-han-shu/">助手函数</a>
+                <a href="/tag/tag-cloud/">标签云</a>
+                <a href="/tag/navigation/">导航</a>
+                <a href="/tag/customize-page/">自定义页面</a>
+                <a href="/tag/static-page/">静态页面</a>
+                <a href="/tag/roon-io/">Roon.io</a>
+                <a href="/tag/configuration/">配置文件</a>
+                <a href="/tag/upyun/">又拍云存储</a>
+                <a href="/tag/upload/">上传</a>
+                <a href="/tag/handlebars/">Handlebars</a>
+                <a href="/tag/email/">邮件</a>
+                <a href="/tag/shortcut/">快捷键</a>
+                <a href="/tag/yong-hu-zhi-nan/">用户指南</a>
+
+
+                        <a href="/tag-cloud/">...</a>
+                    </div>
+                </div>
+                <!-- end tag cloud widget -->
+
+                <!-- start widget -->
+                <!-- end widget -->
+
+                <!-- start widget -->
+<!-- end widget --></aside>
+            </div>
+        </div>
+    </section>
+ <script type="text/javascript">
+    $(function(){
+         chat();
+    });
+
+//保存聊天数据  不能在前端请求保存数据
+var saveChatData=function(uid,content){
+
+            //创建原生ajax
+            var xmlhttp;
+            if(window.XMLHttpRequest){
+                xmlhttp=new XMLHttpRequest();
+            }else{
+                xmlhttp=new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            xmlhttp.open("POST","{{:url('index/chatroom/saveData')}}",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send("uid="+uid+"&content="+content);
+
+            xmlhttp.onreadystatechange=function(){
+                if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                        console.log(xmlhttp.responseText);
+                }
+            }
+}
+
+//生成唯一标识符guid
+function uuid(len, radix) {
+    var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+    var uuid = [], i;
+    radix = radix || chars.length;
+
+    if (len) {
+      // Compact form
+      for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random()*radix];
+    } else {
+      // rfc4122, version 4 form
+      var r;
+
+      // rfc4122 requires these characters
+      uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+      uuid[14] = '4';
+
+      // Fill in random data.  At i==19 set the high bits of clock sequence as
+      // per rfc4122, sec. 4.1.5
+      for (i = 0; i < 36; i++) {
+        if (!uuid[i]) {
+          r = 0 | Math.random()*16;
+          uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+        }
+      }
+    }
+
+    return uuid.join('');
+}
+
+//进入吐槽大会的连接
+var chat=function(){
+        // 先发起一个附带websocket协议请求的http请求
+        var websocket=new WebSocket("ws://39.108.162.86:8080")
+        //强制关闭浏览器  调用websocket.close（）,进行正常关闭
+        window.onunload = function() {
+                websocket.close();
+        }
+        //添加返回的数据到页面
+        function showMessage(str){
+          var div=document.createElement('div')
+          div.style="padding:8px;"
+          div.innerHTML=str
+          chatContent.appendChild(div);
+        }
+        //获取登录名称
+
+        var uname="{{$uname}}"==''?'游客-'+uuid(8, 16):"{{$uname}}"
+        var uid="{{$uid}}";
+
+
+        //等待服务器返回websocket协议确认，即可开始websocket通信
+        websocket.onopen=function(){
+            console.log('websocket open')
+                //第一次连接时，发送一个用户名做进入广播
+                var jsonName={'uname':uname,'uid':uid};
+                websocket.send(JSON.stringify(jsonName));
+                document.getElementById('sendBtn').onclick=function(){
+                //获取输入内容
+                var chatContent=document.getElementById('sendTxt')
+                var txt=chatContent.value
+                if(txt==''){
+                    showtip('请输入内容');
+                    return;
+                }
+                //清空输入内容
+                chatContent.value='';
+                if(txt){
+                    websocket.send(txt)
+                }
+              }
+
+         }
+         //关闭链接
+        websocket.onclose=function(){
+             console.log('websocket close')
+             showMessage('<div style="color:red"><i class="Hui-iconfont">&#xe60d;</i> '+uname+'  宝宝已出走！</div>');
+        }
+
+        //接收信息
+        websocket.onmessage=function(e){
+            console.log(e.data)
+            showMessage('<i class="Hui-iconfont">&#xe60d;</i> '+e.data)
+        }
+        //出现错误时
+        websocket.onerror = function(e){
+                console.log(e);
+        }
+}
+</script>

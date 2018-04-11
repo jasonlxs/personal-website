@@ -1,0 +1,137 @@
+{{layout name='layout'/}}
+<article class="page-container">
+    <form  method="post" class="form form-horizontal" id="form-admin-role-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="roleName" name="roleName">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="" name="description">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态:</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input name="status" type="radio" id="sex-1" value='1' checked>
+                    <label for="sex-1">启用</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-2" name="status" value='0'>
+                    <label for="sex-2">停用</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">网站权限：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+            {{volist name='rules' id='vo'}}<!-- 第一级 -->
+                <dl class="permission-list">
+                    <dt>
+                        <label>
+                            <input type="checkbox" value="{{$vo.id}}" name="user-Character-0[]" id="user-Character-0">
+                            {{$vo.title}}</label>
+                    </dt>
+                    <dd>
+                        {{volist name="$vo.child" id='two'}}<!-- 第二级 -->
+                        <dl class="cl permission-list2">
+                            <dt>
+                                <label class="">
+                                    <input type="checkbox" value="{{$two.id}}" name="user-Character-0-0[]" id="user-Character-0-0">
+                                    {{$two.title}}</label>
+                            </dt>
+
+                            <dd>
+                                {{volist name='$two.child' id='three'}}<!-- 第三级 -->
+                                    <label class="">
+                                        <input type="checkbox" value="{{$three.id}}" name="user-Character-0-0-0[]" id="user-Character-0-0-0">
+                                        {{$three.title}}</label>
+                                {{/volist}}
+                            </dd>
+                        </dl>
+                        {{/volist}}
+                    </dd>
+                </dl>
+                {{/volist}}
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+            </div>
+        </div>
+    </form>
+</article>
+
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(".permission-list dt input:checkbox").click(function(){
+        $(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+    });
+    $(".permission-list2 dd input:checkbox").click(function(){
+        var l =$(this).parent().parent().find("input:checked").length;
+        var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+        if($(this).prop("checked")){
+            $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+            $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+        }
+        else{
+            if(l==0){
+                $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+            }
+            if(l2==0){
+                $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+            }
+        }
+    });
+
+    $("#form-admin-role-add").validate({
+        rules:{
+            roleName:{
+                required:true,
+            },
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+             $(form).ajaxSubmit({
+                type: 'post',
+                url:"{{:url('admin/role/insert')}}",
+                success: function(data){
+                    data=JSON.parse(data);
+                    if(data.status==1){
+                       layer.msg(data.message,{icon:1,time:1000});
+                    }else{
+                        layer.msg(data.message,{icon:1,time:1000});
+                    }
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    layer.msg('error!',{icon:1,time:1000});
+                }
+            });
+            var index = parent.layer.getFrameIndex(window.name);
+             //先刷新页面
+            setTimeout(function(){
+                parent.$('#btn-refresh').click();
+            },2000)
+            //再关闭弹窗
+            setTimeout(function(){
+                 parent.layer.close(index);
+            },3000)
+        }
+    });
+});
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

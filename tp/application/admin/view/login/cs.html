@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Ghost 开源博客平台 | Ghost中文网</title>
+    <meta name="description" content="Ghost 是基于 Node.js 构建的开源博客平台。Ghost 具有易用的书写界面和体验，博客内容默认采用 Markdown 语法书写。Ghost 的目标是取代臃肿的 Wordpress。" />
+    <meta name="keywords" content="Ghost,blog,Ghost中国,Ghost博客,Ghost中文,Ghost中文文档">
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/main.css" />
+
+
+    <meta name="referrer" content="origin" />
+
+    <script type="text/javascript" src="__PUBLIC__/index/js/jquery.min.js"></script>
+    <script type="text/javascript">
+
+       var verifyurl="{{:url('admin/Login/verify','','')}}";
+       var sendPhoneCode="{{:url('mobile/register/sendPhoneCode')}}";
+       var login="{{:url('mobile/login/index')}}"
+       var register="{{:url('mobile/register/index')}}"
+
+    </script>
+</head>
+<body class="home-template" style='height: 1000px'>
+
+<button id='ss'>点击</button>
+<script type="text/javascript">
+$(function(){
+    $('#ss').click(function(){
+      showWindow();
+   })
+   $('#ss').click(function(){
+     alert(1);
+   })
+})
+//判断登录还是注册，并提交数据
+function g_submit(obj,tip){
+
+   $(obj).click(function(){
+        var uname=$("input[name='uname']").val();
+        var upwd=$("input[name='upwd']").val();
+        var code=$("input[name='verify']").val();
+        var sureupwd=$("input[name='sureupwd']").val();
+
+
+        var phone_preg=/^1\d{10}/i;
+        var email_preg=/^\w+@[a-z0-9]+(\.[a-z]+){1,3}/i;
+
+
+       //值验证
+        if(code==''){
+            $(tip).html('验证码不能为空');
+            setTimeout(function(){
+              $(tip).html('');
+             },1000);
+            return;
+        }
+        if(uname==''){
+            $(tip).html('用户名不能为空');
+            setTimeout(function(){
+              $(tip).html('');
+             },1000);
+            return;
+        }
+        if(uname.match(phone_preg)==null && uname.match(email_preg)==null){
+            $(tip).html('用户必须是手机或邮箱');
+            setTimeout(function(){
+              $(tip).html('');
+             },1000);
+            return;
+        }
+
+        if(upwd=='' || upwd.length<6){
+            $(tip).html('密码不能为空或小于6位');
+            setTimeout(function(){
+              $(tip).html('');
+             },1000);
+            return;
+        }
+
+        if(sureupwd==undefined){
+            //登录
+            $.post(login,{uname:uname,upwd:upwd,code:code},function(data){
+                 data=JSON.parse(data);
+                 $(tip).html(data.message);
+                 setTimeout(function(){
+                    $(tip).html('');
+                 },1000);
+                 //如果登录成功 则刷新当前页面
+                 if(data.status==14){
+                    setTimeout(function(){
+                      location.reload();
+                   },2000);
+                 }
+            });
+        }else{
+           //注册
+           if(sureupwd=='' || sureupwd.length<6){
+              $(tip).html('确认密码不能为空或小于6位');
+              setTimeout(function(){
+                $(tip).html('');
+               },1000);
+              return;
+           }
+
+          if(sureupwd!=upwd){
+              $(tip).html('两次密码不一致');
+              setTimeout(function(){
+                $(tip).html('');
+               },1000);
+              return;
+           }
+
+          $.post(register,{uname:uname,upwd:upwd,code:code},function(data){
+                 data=JSON.parse(data);
+                 $(tip).html(data.message);
+                 setTimeout(function(){
+                    $(tip).html('');
+                 },1000);
+                 //关闭当前窗口重新打开
+
+            });
+
+        }
+
+    });
+}
+//点击刷新验证码
+function verify(obj){
+    $(obj).attr('src',verifyurl+'/'+Math.random());
+}
+
+//弹窗函数
+function showWindow(){
+      //添加隐藏层
+      var hide=$('<div id="winhide">xx</div>');
+       $('body').append(hide);
+
+      //****************************弹窗内容****************************
+        //默认弹窗
+        var a="<div id='form-login'><p class='title'><span id='landon'>登录</span><span id='phone_reg'>手机注册</span><span id='email_reg'>邮箱注册</span></p><table id='content'><tr><td align='center'>用户名：</td><td><input type='text' name='uname'></td></tr><tr><td align='center'>密码：</td><td><input type='password' name='upwd'><td></tr><tr><td align='center'>验证码：</td><td><input type='text' name='verify'></td><td><img id='verify' width='50' height='30' src='"+verifyurl+"' alt=''></td></tr><tr><td></td><td align='center'><button id='window_btn'>登录</button></td></tr></table><div id='atip'><span id='ltip'></span></div><div id='close'>×</div></div>";
+         //登录选项卡
+         var b="<table id='content'><tr><td align='center'>用户名：</td><td><input type='text' name='uname'></td></tr><tr><td align='center'>密码：</td><td><input type='password' name='upwd'><td></tr><tr><td align='center'>验证码：</td><td><input type='text' name='verify'></td><td><img id='verify' width='50' height='30' src='"+verifyurl+"' alt=''></td></tr><tr><td></td><td><button id='window_btn' type='submit'>登录</button></td></tr></table>";
+
+         //手机注册选项卡
+         var c="<table id='content'><tr><td align='center'>手机：</td><td><input type='text' name='uname'></td></tr><tr><td align='center'>密码：</td><td><input type='password' name='upwd'><td></tr><tr><td align='center'>确认密码：</td><td><input type='password' name='sureupwd'><td></tr><tr><td align='center'>验证码：</td><td><input type='text' name='verify'></td><td><div id='phone_timing' style='width:80px;'><a id='sendCode'>发送验证码</a><span id='timing_num'></span></div></td></tr><tr><td></td><td><button id='window_btn'>提交</button></td></tr></table>";
+         //邮箱注册选项卡
+         var d="<table id='content'><tr><td align='center'>邮箱：</td><td><input type='text' name='uname'></td></tr><tr><td align='center'>密码：</td><td><input type='password' name='upwd'><td></tr><tr><td align='center'>确认密码：</td><td><input type='password' name='sureupwd'><td></tr><tr><td align='center'>验证码：</td><td><input type='text' name='verify'></td><td><img id='verify' width='50' height='30' src='"+verifyurl+"' alt=''></td></tr><tr><td></td><td><button id='window_btn'>提交</button></td></tr></table>"
+
+      //****************************默认弹窗内容****************************
+
+       var oLogin=$(a);
+
+
+       //添加弹出窗口
+       $('#winhide').append(oLogin);
+
+       //窗口位置、缩小窗口、滚动时调整弹窗位置
+       oLogin.css('left',($(window).width()-oLogin.outerWidth())/2);
+       oLogin.css('top',($(window).height()-oLogin.outerHeight())/2 + $(window).scrollTop());
+
+       $(window).on('resize scroll',function(){
+         oLogin.css('left',($(window).width()-oLogin.outerWidth())/2);
+         oLogin.css('top',( $(window).height()-oLogin.outerHeight() )/2 + $(window).scrollTop());
+       });
+
+       //提交信息   需要判断登录还是注册
+       g_submit($("#window_btn"),$('#ltip'));
+       //点击刷新验证码
+       $("#verify").click(function(event) {
+           verify($('#verify'));
+       });
+
+       //****************************登录选项卡变换****************************
+       $('#landon').hover(function(){
+           $(this).css('background-color','#E5C681');
+           $('#phone_reg').css('background-color','');
+           $('#email_reg').css('background-color','');
+           $('#content').remove();
+           $('#atip').prepend(b);
+           //提交
+            g_submit($("#window_btn"),$('#ltip'));
+            //点击刷新验证码
+            $("#verify").click(function(event) {
+                 verify($('#verify'));
+            });
+       });
+       //****************************手机注册选项卡变换****************************
+       $('#phone_reg').hover(function(){
+          $(this).css('background-color','#E5C681');
+          $('#landon').css('background-color','');
+          $('#email_reg').css('background-color','');
+          $('#content').remove();
+          $('#atip').prepend(c);
+            //发送手机验证码
+            $('#sendCode').click(function(){
+               var me=this;
+               //验证手机号码
+               var phone=$("input[name='uname']").val();
+               if(phone==''|| phone.length!=11){
+                    $('#ltip').html('手机号码为空或长度不等于11');
+                    setTimeout(function(){
+                      $('#ltip').html('');
+                    },1000);
+                    return;
+               }
+
+               //请求发送
+                 $.post(sendPhoneCode,{phone:phone},function(data){
+                      data=JSON.parse(data);
+                      if(data.status==1){
+                          $('#ltip').html(data.message);
+                          setTimeout(function(){
+                            $('#ltip').html('');
+                          },1000);
+                          //倒计时开始
+                           $(me).css('display','none');
+                            var num=10;
+                            $('#timing_num').html(num+'s');
+                            var interval=setInterval(function(){
+                               num=--num;
+                               $('#timing_num').html(num+'s');
+                               if(num==0){
+                                   clearInterval(interval);
+                                   $('#timing_num').html('');
+                                   $(me).css('display','');
+                               }
+                            },1000)
+                          //倒计时结束
+                      }else{
+                        $('#ltip').html(data.message);
+                        setTimeout(function(){
+                          $('#ltip').html('');
+                        },1000);
+                    }
+                 });
+            });
+            //提交
+             g_submit($("#window_btn"),$('#ltip'));
+             //点击刷新验证码
+             $("#verify").click(function(event) {
+                verify($('#verify'));
+             });
+       });
+
+       //****************************邮箱注册选项卡变换***********************************************
+       $('#email_reg').hover(function(){
+          $(this).css('background-color','#E5C681');
+          $('#landon').css('background-color','');
+          $('#phone_reg').css('background-color','');
+          $('#content').remove();
+          $('#atip').prepend(d);
+           //提交
+           g_submit($("#window_btn"),$('#ltip'));
+           //点击刷新验证码
+           $("#verify").click(function(event) {
+                verify($('#verify'));
+           });
+       });
+
+
+       //****************************关闭弹窗****************************
+       $("#close").click(function(event) {
+          oLogin.remove();
+          hide.remove();
+       });
+}
+
+</script>
+</body>
+</html>

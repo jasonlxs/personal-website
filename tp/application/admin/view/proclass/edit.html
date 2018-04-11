@@ -1,0 +1,110 @@
+{{layout name='layout' /}}
+<div class="page-container">
+    <form method="post" class="form form-horizontal" id="form-user-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">
+                <span class="c-red">*</span>
+                分类名称：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="text" class="input-text" value="{{$pcate.cname}}" placeholder="" id="user-name" name="cname">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">
+                <span class="c-red">*</span>
+                分类编号：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="text" class="input-text" value="{{$pcate.cate_no}}" placeholder="" id="user-name" name="cate_no">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">
+                <span class="c-red">*</span>
+                分类图片：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <img id='preview_id1' src="__PUBLIC__/uploads/{{if condition='$pcate.preview!=null'}} {{$pcate.preview}} {{else /}}22.png {{/if}}" width='100' height="100" title='添加图片' style='border 1px solid'  onclick="$('#input_id1').click();" />
+              <input type='file' name='file' id='input_id1' style='display: none;' onchange="return uploadImageToServer('{{:url('/service/Fileupload/upload/','','')}}','__PUBLIC__/uploads/','input_id1','images','preview_id1','hidden_id1')">
+              <input type='hidden' id='hidden_id1' name="preview" value="">
+            </div>
+        </div>
+     <!--    <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">备注：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <textarea name="description" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+            </div>
+        </div> -->
+        <div class="row cl">
+            <div class="col-9 col-offset-2">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+        <input type="hidden" name='id' value='{{$pcate.id}}'>
+    </form>
+</div>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/h-ui/js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+//图片上传函数
+function uploadImageToServer(url,uploads,fileElmId,type,id,hid){
+          //设置加载图片
+          $('#'+id).attr("src",uploads+"22.png");
+          //上传图片
+          $.ajaxFileUpload({
+              url:url,
+              fileElementId:fileElmId,
+              dataType:'text',
+              success:function(data){
+                var result=JSON.parse(data);
+                $('#'+id).attr('src',uploads+result.uri);
+                $('#'+hid).val(result.uri);
+              },
+              error:function(XMLHttpRequest,textStatus,errorThrown){
+                alert(errorThrown);
+              }
+            });
+            return false;
+}
+$(function(){
+
+     $("#form-user-add").validate({
+        rules:{
+            roleName:{
+                required:true,
+            },
+        },
+        onkeyup:false,
+        focusCleanup:true,
+        success:"valid",
+        submitHandler:function(form){
+             $(form).ajaxSubmit({
+                type: 'post',
+                url:"{{:url('admin/proclass/edit')}}",
+                success: function(data){
+
+                    data=JSON.parse(data);
+                    layer.msg(data.message,{icon:1,time:1000});
+
+                },
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+                    alert(errorThrown);
+                    layer.msg('error!',{icon:1,time:1000});
+                }
+            });
+            var index = parent.layer.getFrameIndex(window.name);
+             //先刷新页面
+            setTimeout(function(){
+                parent.parent.$('#btn-refresh').click();
+            },2000)
+            //再关闭弹窗
+            setTimeout(function(){
+                 parent.layer.close(index);
+            },3000)
+        }
+    });
+});
+</script>

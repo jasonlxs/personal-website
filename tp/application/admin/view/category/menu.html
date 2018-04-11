@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/html5shiv.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/respond.min.js"></script>
+
+<![endif]-->
+<!-- <link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/admin/h-ui.admin/css/style.css" /> -->
+<!--[if IE 6]>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<style>
+.button{
+    color:#fff;
+    background-color:#5A98DE;
+    border-radius:10px;
+    padding:8px;
+}
+</style>
+<title>按钮</title>
+</head>
+<body>
+   {{if condition='$cname!=null'}}
+      <div style="padding:10px;">您选择的分类是：{{$cname}}</div>
+   {{/if}}
+  <div class='buttons'>
+       <button onclick='jump("新增一级分类","{{:url('admin/category/insert','','')}}","0","500","300")' class='button'>新增一级分类</button>
+
+       {{if condition="$id!=null"}}
+         <button onclick='jump("新增子级分类","{{:url('admin/category/insert','','')}}","{{$id}}","500","300")' class='button'>新增子级分类</button>
+         <button onclick='jump("修改分类","{{:url('admin/category/edit','','')}}","{{$id}}","500","300")' class='button'>修改分类</button>
+         <button onclick='cate_del("{{$id}}")' class='button'>删除分类</button>
+       {{/if}}
+   </div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__PUBLIC__/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript">
+function jump(title,url,id,w,h){
+      url=url+'/id/'+id;
+      layer_show(title,url,w,h);
+}
+/*管理员-角色-删除*/
+function cate_del(id){
+    layer.confirm('确认要删除吗？',function(index){
+        $.ajax({
+            type: 'POST',
+            url: "{{:url('admin/category/del')}}",
+            data:{id:id},
+            dataType: 'json',
+            success: function(data){
+                data=JSON.parse(data);
+                layer.msg(data.message,{icon:1,time:1000});
+                setTimeout(function(){parent.$('#btn-refresh').click();},1000);
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    });
+}
+</script>
+</body>
+</html>
